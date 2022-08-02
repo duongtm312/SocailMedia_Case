@@ -17,5 +17,7 @@ public class ChatMessage {
     private AppUser receiver;
     private String contentMessage;
     private String imgChatSrc;
+    @OneToOne
+    private RoomChat roomChat;
 
 }
