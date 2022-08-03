@@ -4,6 +4,7 @@ import com.teamone.socialmediaproject.model.AppUser;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Data
@@ -19,5 +20,5 @@ public class ChatMessage {
     private String imgChatSrc;
     @OneToOne
     private RoomChat roomChat;
-
+    private Date time;
 }

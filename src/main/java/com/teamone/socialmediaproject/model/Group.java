@@ -3,7 +3,7 @@ package com.teamone.socialmediaproject.model;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
@@ -19,5 +19,5 @@ public class Group {
     private String photoCoverGroup;
     private long numMember;
     @ManyToMany(fetch = FetchType.EAGER)
-    private List<AppUser> members;
+    private Set<AppUser> members;
 }

@@ -4,6 +4,7 @@ import com.teamone.socialmediaproject.model.AppUser;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Data
@@ -19,4 +20,5 @@ public class Comments {
     private Post post;
     @ManyToOne
     private Comments comment;
+    private Date timeCmt;
 }
