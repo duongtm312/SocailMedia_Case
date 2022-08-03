@@ -5,6 +5,7 @@ import com.teamone.socialmediaproject.model.AppUser;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Data
@@ -18,5 +19,6 @@ public class Likes {
     private AppUser appUser;
     @ManyToOne
     private Comments comments;
+    private Date timeLike;
 }
 
