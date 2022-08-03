@@ -21,4 +21,9 @@ public class ProfileService implements IProfileService {
     public Profile save(Profile profile) {
         return iProfileRepo.save(profile);
     }
+
+    @Override
+    public Profile findById(long id) {
+return iProfileRepo.findById(id).get();
+    }
 }

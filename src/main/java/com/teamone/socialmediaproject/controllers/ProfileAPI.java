@@ -11,6 +11,14 @@ import org.springframework.web.bind.annotation.*;
 public class ProfileAPI {
     @Autowired
    IProfileService profileService;
+    @GetMapping("/{id}")
+    public Profile showEdit(@PathVariable long id){
+        return profileService.findById(id);
+    }
+    @PostMapping
+    public Profile save(@RequestBody Profile profile){
+        return profileService.save(profile);
+    }
 @PutMapping
     public Profile edit (@RequestBody Profile profile){
     return profileService.save(profile);
