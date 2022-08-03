@@ -20,5 +20,4 @@ public class Post {
     private String status;
     @ManyToOne
     private AppUser appUser;
-
 }
