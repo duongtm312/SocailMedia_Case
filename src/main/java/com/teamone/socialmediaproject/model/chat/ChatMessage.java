@@ -21,5 +21,4 @@ public class ChatMessage {
     @OneToOne
     private RoomChat roomChat;
     private Date time;
-
 }
