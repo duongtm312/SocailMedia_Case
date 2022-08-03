@@ -1,6 +1,6 @@
 package com.teamone.socialmediaproject.config.filter;
 
-import com.teamone.socialmediaproject.config.filter.JwtAuthenticationFilter;
+
 import com.teamone.socialmediaproject.service.AppUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -36,8 +36,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers("/login", "/register", "/user").permitAll()
                 .and().authorizeRequests().anyRequest().authenticated()
                 .and().csrf().disable();
-
-
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling();
         http.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues());

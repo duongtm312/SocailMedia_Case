@@ -1,4 +1,4 @@
-package com.teamone.socialmediaproject.controller.socketcontroller.Login;
+package com.teamone.socialmediaproject.controller.Login;
 
 
 import com.teamone.socialmediaproject.model.AppUser;
