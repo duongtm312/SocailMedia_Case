@@ -4,6 +4,8 @@ package com.teamone.socialmediaproject.controller.Login;
 import com.teamone.socialmediaproject.model.AppUser;
 import com.teamone.socialmediaproject.service.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -24,7 +26,7 @@ public class LoginAPI {
 
 
     @PostMapping("/login")
-    public String login(@RequestBody AppUser appUser){
+    public ResponseEntity< String> login(@RequestBody AppUser appUser){
         try {
             // Tạo ra 1 đối tượng Authentication.
             Authentication authentication = authenticationManager.authenticate(
@@ -32,10 +34,9 @@ public class LoginAPI {
             SecurityContextHolder.getContext().setAuthentication(authentication);
 
             String token = jwtService.createToken(authentication);
-            return token;
+            return new ResponseEntity<>(token,HttpStatus.OK);
         } catch (Exception e) {
-            return e.getMessage();
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.EXPECTATION_FAILED);
         }
-
     }
 }
