@@ -1,8 +1,7 @@
 package com.teamone.socialmediaproject.model.fullpost;
 
 import com.teamone.socialmediaproject.model.AppUser;
-import com.teamone.socialmediaproject.model.fullpost.Comments;
-import com.teamone.socialmediaproject.model.fullpost.Post;
+
 import lombok.Data;
 
 import javax.persistence.*;
