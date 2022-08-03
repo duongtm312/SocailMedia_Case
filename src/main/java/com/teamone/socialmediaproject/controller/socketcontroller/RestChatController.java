@@ -1,7 +1,9 @@
 package com.teamone.socialmediaproject.controller.socketcontroller;
 
+import com.teamone.socialmediaproject.model.AppUser;
 import com.teamone.socialmediaproject.model.Profile;
 import com.teamone.socialmediaproject.model.chat.ChatMessage;
+import com.teamone.socialmediaproject.service.AppUserService;
 import com.teamone.socialmediaproject.service.ChatMessageService;
 import com.teamone.socialmediaproject.service.ProfileService;
 import com.teamone.socialmediaproject.service.RoomChatService;
@@ -22,6 +24,8 @@ public class RestChatController {
     ChatMessageService chatMessageService;
     @Autowired
     ProfileService profileService;
+    @Autowired
+    AppUserService appUserService;
     @GetMapping("/room")
     public long room( @RequestBody String receiver){
         String sender="";
@@ -42,6 +46,7 @@ public class RestChatController {
     @GetMapping("/friends")
     public List<Profile> getAlFriends(){
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-       return profileService.getAll(userDetails.getUsername());
+        AppUser appUser=appUserService.findByName(userDetails.getUsername());
+       return profileService.getAll(appUser.getIdUser());
     }
 }

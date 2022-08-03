@@ -10,7 +10,7 @@ import java.util.List;
 public class ProfileService {
     @Autowired
     IProFileRepo iProFileRepo;
-    public List<Profile> getAll(String user){
+    public List<Profile> getAll(long user){
         return iProFileRepo.getAllProfileFriends(user);
     }
 }
