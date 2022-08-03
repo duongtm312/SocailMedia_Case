@@ -1,4 +1,4 @@
-package com.teamone.socialmediaproject.config;
+package com.teamone.socialmediaproject.config.filter;
 
 import com.teamone.socialmediaproject.config.filter.JwtAuthenticationFilter;
 import com.teamone.socialmediaproject.service.AppUserService;
@@ -33,7 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/login").permitAll()
+        http.authorizeRequests().antMatchers("/login", "/register", "/user").permitAll()
                 .and().authorizeRequests().anyRequest().authenticated()
                 .and().csrf().disable();
 

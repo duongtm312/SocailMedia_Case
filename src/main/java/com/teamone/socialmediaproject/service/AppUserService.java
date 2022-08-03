@@ -1,7 +1,6 @@
 package com.teamone.socialmediaproject.service;
 
 
-;
 import com.teamone.socialmediaproject.model.AppUser;
 import com.teamone.socialmediaproject.repository.IAppUserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,11 +19,14 @@ public class AppUserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        AppUser appUser = iAppUserRepo.findByUsername(username);
-        return new User(appUser.getUserName(), appUser.getPassWord(), );
+        AppUser appUser = iAppUserRepo.findByUserName(username);
+        return new User(appUser.getUserName(), appUser.getPassWord(), appUser.getRoles());
     }
 
     public List<AppUser> getAll(){
         return (List<AppUser>) iAppUserRepo.findAll();
+    }
+    public AppUser findByName(String name) {
+        return  iAppUserRepo.findByUserName(name);
     }
 }

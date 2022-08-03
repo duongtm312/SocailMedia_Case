@@ -1,17 +1,12 @@
 package com.teamone.socialmediaproject.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-
+import java.util.Set;
 
 @Entity
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class AppUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,4 +14,6 @@ public class AppUser {
     private String userName;
     private String passWord;
     private String email;
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<Role> roles;
 }

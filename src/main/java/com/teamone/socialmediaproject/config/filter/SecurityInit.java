@@ -1,4 +1,4 @@
-package com.teamone.socialmediaproject.config;
+package com.teamone.socialmediaproject.config.filter;
 
 import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
 

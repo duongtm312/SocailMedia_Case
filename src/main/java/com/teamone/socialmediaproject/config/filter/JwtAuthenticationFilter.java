@@ -1,7 +1,8 @@
 package com.teamone.socialmediaproject.config.filter;
 
-import com.example.demo_spring_security.services.AppUserService;
-import com.example.demo_spring_security.services.JwtService;
+
+import com.teamone.socialmediaproject.service.AppUserService;
+import com.teamone.socialmediaproject.service.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
