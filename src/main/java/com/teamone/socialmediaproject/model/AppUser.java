@@ -3,8 +3,11 @@ package com.teamone.socialmediaproject.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.UniqueElements;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
 import java.util.Set;
 
 @Entity
@@ -18,7 +21,7 @@ public class AppUser {
     private String userName;
     private String passWord;
     private String email;
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER,cascade = {CascadeType.ALL})
     private Set<Role> roles;
 
     public AppUser(String userName, String passWord) {

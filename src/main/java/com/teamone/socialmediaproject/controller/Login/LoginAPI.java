@@ -3,6 +3,7 @@ package com.teamone.socialmediaproject.controller.Login;
 
 import com.teamone.socialmediaproject.model.AppUser;
 import com.teamone.socialmediaproject.model.Profile;
+import com.teamone.socialmediaproject.model.Role;
 import com.teamone.socialmediaproject.model.dto.SignUpForm;
 import com.teamone.socialmediaproject.service.AppUserService;
 import com.teamone.socialmediaproject.service.JwtService;
@@ -19,6 +20,9 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.HashSet;
+import java.util.Set;
 
 
 @RestController
@@ -59,23 +63,25 @@ public class LoginAPI {
 
     @PostMapping("/register")
     public ResponseEntity<AppUser> register(@RequestBody SignUpForm user) {
-        if (!user.getPassWord().equals(user.getConfirmPassword())) {
+        if (!user.getPassWord().equals(user.getConfirmPassword())||appUserService.findByName(user.getUserName())!=null
+        ||appUserService.findByEMail(user.getEmail())!=null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        AppUser user1 = new AppUser(user.getUserName(), user.getPassWord());
+        AppUser user1 = new AppUser();
+        user1.setUserName(user.getUserName());
+        user1.setPassWord(user.getPassWord());
+        user1.setEmail(user.getEmail());
+        Set<Role> roleSet = new HashSet<>();
+        Role role = new Role();
+        role.setNameRole("ROLE_USER");
+        roleSet.add(role);
+        user1.setRoles(roleSet);
         appUserService.save(user1);
         Profile profile = new Profile(
-                user.getFullName(),
-                user.getPhoneNumber(),
-                user.getBirthDay(),
-                user.getAddress(),
-                user.getStatus(),
-                user.getJob(),
-                user.getStartJoin(),
-                user.getGender(),
-                user1
-                );
+        );
+        profile.setFullName(user.getFullName());
+        profile.setAppUser(user1);
         profileService.save(profile);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>(user1, HttpStatus.CREATED);
     }
 }

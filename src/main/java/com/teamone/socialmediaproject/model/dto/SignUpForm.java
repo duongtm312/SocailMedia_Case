@@ -14,17 +14,5 @@ public class SignUpForm {
     private String fullName;
     private String passWord;
     private String confirmPassword;
-    private String phoneNumber;
-    private Date birthDay;
-    private String address;
-    private String status;
-    private String job;
-    private String avatarSrc;
-    private String photoCoverSrc;
-    private Date startJoin;
-    private String gender;
     private String email;
-
-
-
 }
