@@ -39,8 +39,6 @@ public class LoginAPI {
     @Autowired
     ProfileService profileService;
 
-    @Autowired
-    PasswordEncoder passwordEncoder;
 
 
     @PostMapping("/login")
