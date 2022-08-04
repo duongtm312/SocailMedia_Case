@@ -5,6 +5,8 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
@@ -20,4 +22,8 @@ public class Post {
     private String status;
     @ManyToOne
     private AppUser appUser;
+    @OneToMany (fetch = FetchType.EAGER,cascade = {CascadeType.ALL})
+    private Set <Comments> commentsList;
+    @OneToMany (fetch = FetchType.EAGER,cascade = {CascadeType.ALL})
+    private Set <Likes> likesList;
 }

@@ -18,6 +18,7 @@ public class PostAPI {
 
     @GetMapping()
     public ResponseEntity<List<Post>> getAllPostFriend() {
+        long idUser = postService.findIdUser();
         List <Post> list = postService.findPostByFriend(postService.findIdUser());
         return new ResponseEntity<>(list,HttpStatus.ACCEPTED);
     }
