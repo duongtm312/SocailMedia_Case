@@ -4,6 +4,7 @@ package com.teamone.socialmediaproject.controller.Login;
 import com.teamone.socialmediaproject.model.AppUser;
 import com.teamone.socialmediaproject.model.Profile;
 import com.teamone.socialmediaproject.model.Role;
+import com.teamone.socialmediaproject.model.dto.ChangePassword;
 import com.teamone.socialmediaproject.model.dto.SignUpForm;
 import com.teamone.socialmediaproject.service.AppUserService;
 import com.teamone.socialmediaproject.service.JwtService;
@@ -16,12 +17,10 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 
@@ -40,6 +39,9 @@ public class LoginAPI {
     @Autowired
     ProfileService profileService;
 
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
 
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody AppUser appUser) {
@@ -56,15 +58,11 @@ public class LoginAPI {
         }
     }
 
-//    @PostMapping("/register")
-//    public void register(@RequestBody AppUser appUser) {
-//        appUserService.save(appUser);
-//    }
 
     @PostMapping("/register")
     public ResponseEntity<AppUser> register(@RequestBody SignUpForm user) {
-        if (!user.getPassWord().equals(user.getConfirmPassword())||appUserService.findByName(user.getUserName())!=null
-        ||appUserService.findByEMail(user.getEmail())!=null) {
+        if (!user.getPassWord().equals(user.getConfirmPassword()) || appUserService.findByName(user.getUserName()) != null
+                || appUserService.findByEMail(user.getEmail()) != null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         AppUser user1 = new AppUser();
@@ -84,4 +82,32 @@ public class LoginAPI {
         profileService.save(profile);
         return new ResponseEntity<>(user1, HttpStatus.CREATED);
     }
+
+    @PostMapping("/changePassword/{id}")
+    public ResponseEntity<AppUser> changePassword(@PathVariable Long id, @RequestBody ChangePassword changePassword) {
+        Optional<AppUser> appUser = appUserService.findByID(id);
+        String newPassword;
+        String oldPassword = changePassword.getOldPassword();
+        if (!appUser.isPresent()) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            } else {
+                if (oldPassword.equals(appUser.get().getPassWord())) {
+                    if (changePassword.getNewPassword().equals(changePassword.getConfirmNewPassword())) {
+                        newPassword = changePassword.getNewPassword();
+                    } else {
+                        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+                    }
+                } else {
+                    return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+                }
+            }
+        appUser.get().setPassWord(newPassword);
+        appUser.get().setIdUser(id);
+        appUserService.save(appUser.get());
+        return new ResponseEntity<>(appUser.get(),HttpStatus.OK);
+    }
+
 }
+
+
+
