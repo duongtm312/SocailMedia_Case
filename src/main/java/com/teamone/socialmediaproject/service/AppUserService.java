@@ -36,4 +36,7 @@ public class AppUserService implements UserDetailsService {
     public AppUser findByEMail(String email){
         return iAppUserRepo.findByEmail(email);
     }
+    public AppUser findById(long id){
+        return iAppUserRepo.findById(id).get();
+    }
 }
