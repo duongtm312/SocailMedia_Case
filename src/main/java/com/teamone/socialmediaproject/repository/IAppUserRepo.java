@@ -10,4 +10,5 @@ import org.springframework.stereotype.Repository;
 public interface IAppUserRepo extends CrudRepository<AppUser, Long> {
     @Query(nativeQuery = true, value = "select * from app_user where user_name like concat ('%',:name,'%');")
     AppUser findByUserName(@Param("name") String name);
+    AppUser findByEmail(String email);
 }
