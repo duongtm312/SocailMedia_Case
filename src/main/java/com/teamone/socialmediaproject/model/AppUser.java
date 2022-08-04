@@ -2,10 +2,8 @@ package com.teamone.socialmediaproject.model;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Data
@@ -16,4 +14,6 @@ public class AppUser {
     private String userName;
     private String passWord;
     private String email;
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<Role> roles;
 }
