@@ -1,8 +1,12 @@
 package com.teamone.socialmediaproject.controllers;
 
+import com.teamone.socialmediaproject.model.AppUser;
 import com.teamone.socialmediaproject.model.Profile;
+import com.teamone.socialmediaproject.service.AppUserService;
 import com.teamone.socialmediaproject.service.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,6 +17,8 @@ import java.util.List;
 public class ProfileAPI {
     @Autowired
     ProfileService profileService;
+    @Autowired
+    AppUserService appUserService;
 
     @GetMapping
     public List<Profile> getAll() {
@@ -20,17 +26,21 @@ public class ProfileAPI {
     }
 
     @PostMapping
-    public Profile save(@RequestBody Profile profile) {
-        return profileService.save(profile);
+    public void save(@RequestBody Profile profile) {
+        profileService.save(profile);
     }
 
-    @GetMapping("/{id}")
-    public Profile findById(@PathVariable long id) {
-        return profileService.findById(id);
+    @GetMapping("/profile")
+    public Profile findById() {
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        AppUser appUser=appUserService.findByName(userDetails.getUsername());
+        return new Profile();
 
     } @PutMapping
-    public Profile edit(@RequestBody Profile profile){
-        return profileService.save(profile);
+    public void edit(@RequestBody Profile profile){
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        AppUser appUser=appUserService.findByName(userDetails.getUsername());
+         profileService.save(profile);
     }
 
 }
