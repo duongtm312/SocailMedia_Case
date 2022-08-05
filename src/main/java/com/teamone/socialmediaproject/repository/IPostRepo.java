@@ -18,4 +18,6 @@ public interface IPostRepo extends CrudRepository<Post,Long> {
     @Query(nativeQuery = true,value = "select * from post where app_user_id_user =:idUser")
     List <Post> findAllPostById(@Param("idUser") long idUser);
 
+
+
 }
