@@ -13,6 +13,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
+import java.time.LocalDate;
+import java.util.Date;
+
 @Controller
 @CrossOrigin("*")
 public class ChatController {
@@ -24,9 +27,10 @@ public class ChatController {
     ChatMessageService chatMessageService;
     @MessageMapping("/chat.sendMessage")
     public void sendMessage(@Payload ChatMessage messageChat) {
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        AppUser appUser = appUserService.findByName(userDetails.getUsername());
-        messageChat.setSender(appUser);
+        AppUser appUser = appUserService.findByName(messageChat.getReceiver().getUserName());
+        messageChat.setReceiver(appUser);
+        Date date=new Date();
+        messageChat.setTime(date);
         chatMessageService.save(messageChat);
         simpMessagingTemplate.convertAndSend("/chatroom/public/"+ messageChat.getRoomChat().getIdRoom(), messageChat);
 

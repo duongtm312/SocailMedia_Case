@@ -31,8 +31,8 @@ public class AppUserService implements UserDetailsService {
         return  iAppUserRepo.findByUserName(name);
     }
 
-    public void save(AppUser appUser){
-        iAppUserRepo.save(appUser);
+    public AppUser save(AppUser appUser){
+        return iAppUserRepo.save(appUser);
     }
     public AppUser findByEMail(String email){
         return iAppUserRepo.findByEmail(email);

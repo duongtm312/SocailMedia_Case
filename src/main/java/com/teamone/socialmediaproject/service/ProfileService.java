@@ -24,4 +24,11 @@ public class ProfileService {
 public Profile findByName(String name){
         return iUserProfileRepo.findByAppUserUserName(name);
 }
+
+    public Profile findProfilebyIdUser (long id){
+        return iUserProfileRepo.findProfileByAppUserIdUser(id);
+    }
+    public List<Profile>findAllByProfileNotFriends(long user,String name){
+        return iUserProfileRepo.findAllByProfileNotFriends(user,name);
+    }
 }

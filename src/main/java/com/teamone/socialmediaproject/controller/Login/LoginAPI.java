@@ -16,6 +16,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -80,31 +81,28 @@ public class LoginAPI {
         return new ResponseEntity<>(user1, HttpStatus.CREATED);
     }
 
-    @PostMapping("/changePassword/{id}")
-    public ResponseEntity<AppUser> changePassword(@PathVariable Long id, @RequestBody ChangePassword changePassword) {
-        Optional<AppUser> appUser = appUserService.findById(id);
+    @PostMapping("/changePassword")
+    public ResponseEntity<AppUser> changePassword(@RequestBody ChangePassword changePassword) {
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        AppUser appUser = appUserService.findByName(userDetails.getUsername());
         String newPassword;
         String oldPassword = changePassword.getOldPassword();
-        if (!appUser.isPresent()) {
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        if (oldPassword.equals(appUser.getPassWord())) {
+            if (changePassword.getNewPassword().equals(changePassword.getConfirmNewPassword())) {
+                newPassword = changePassword.getNewPassword();
             } else {
-                if (oldPassword.equals(appUser.get().getPassWord())) {
-                    if (changePassword.getNewPassword().equals(changePassword.getConfirmNewPassword())) {
-                        newPassword = changePassword.getNewPassword();
-                    } else {
-                        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-                    }
-                } else {
-                    return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-                }
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
-        appUser.get().setPassWord(newPassword);
-        appUser.get().setIdUser(id);
-        appUserService.save(appUser.get());
-        return new ResponseEntity<>(appUser.get(),HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        appUser.setPassWord(newPassword);
+        appUserService.save(appUser);
+        return new ResponseEntity<>(appUser, HttpStatus.OK);
     }
 
 }
+
 
 
 
