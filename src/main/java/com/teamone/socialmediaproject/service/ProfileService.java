@@ -11,18 +11,20 @@ import java.util.List;
 public class ProfileService {
     @Autowired
     IUserProfileRepo iUserProfileRepo;
-    public List<Profile>getAll(){
-        return (List<Profile>) iUserProfileRepo.findAll();
-
-    }
-    public Profile findById(long id){
-        return iUserProfileRepo.findById(id).get();
-    }
     public void save(Profile profile) {
         iUserProfileRepo.save(profile);
     }
     public List<Profile> getAll(long user){
         return iUserProfileRepo.getAllProfileFriends(user);
     }
+public Profile findByName(String name){
+        return iUserProfileRepo.findByAppUserUserName(name);
+}
 
+    public Profile findProfilebyIdUser (long id){
+        return iUserProfileRepo.findProfileByAppUserIdUser(id);
+    }
+    public List<Profile>findAllByProfileNotFriends(long user,String name){
+        return iUserProfileRepo.findAllByProfileNotFriends(user,name);
+    }
 }

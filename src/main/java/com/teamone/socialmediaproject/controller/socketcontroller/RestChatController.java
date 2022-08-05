@@ -49,4 +49,10 @@ public class RestChatController {
         AppUser appUser=appUserService.findByName(userDetails.getUsername());
        return profileService.getAll(appUser.getIdUser());
     }
+    @GetMapping("/on")
+    public AppUser getUser() {
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        AppUser appUser = appUserService.findByName(userDetails.getUsername());
+        return appUserService.findByName(appUser.getUserName());
+    }
 }

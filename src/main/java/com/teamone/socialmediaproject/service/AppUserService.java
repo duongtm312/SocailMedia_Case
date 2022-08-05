@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AppUserService implements UserDetailsService {
@@ -30,10 +31,13 @@ public class AppUserService implements UserDetailsService {
         return  iAppUserRepo.findByUserName(name);
     }
 
-    public void save(AppUser appUser){
-        iAppUserRepo.save(appUser);
+    public AppUser save(AppUser appUser){
+        return iAppUserRepo.save(appUser);
     }
     public AppUser findByEMail(String email){
         return iAppUserRepo.findByEmail(email);
+    }
+    public Optional<AppUser> findById(long id){
+        return iAppUserRepo.findById(id);
     }
 }

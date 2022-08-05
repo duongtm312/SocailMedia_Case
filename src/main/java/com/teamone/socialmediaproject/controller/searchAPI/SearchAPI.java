@@ -1,4 +1,4 @@
-package com.teamone.socialmediaproject.controllers;
+package com.teamone.socialmediaproject.controller.searchAPI;
 
 import com.teamone.socialmediaproject.model.AppUser;
 import com.teamone.socialmediaproject.model.Profile;
@@ -12,35 +12,20 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/search")
 @CrossOrigin("*")
-@RequestMapping("/profiles")
-public class ProfileAPI {
+public class SearchAPI {
     @Autowired
     ProfileService profileService;
     @Autowired
     AppUserService appUserService;
-
-
-    @PostMapping
-    public void save(@RequestBody Profile profile) {
-        profileService.save(profile);
-    }
-
-    @GetMapping("/profile")
-    public Profile findById() {
+    @GetMapping
+    public List<Profile>getAll(@RequestParam String name){
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         AppUser appUser = appUserService.findByName(userDetails.getUsername());
-        return profileService.findByName(appUser.getUserName());
-
-
+        Profile profile = profileService.findProfilebyIdUser(appUser.getIdUser());
+        List<Profile> list=profileService.findAllByProfileNotFriends(appUser.getIdUser(),name);
+        list.remove(profile);
+        return list;
     }
-
-    @PutMapping
-    public void edit(@RequestBody Profile profile) {
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        AppUser appUser = appUserService.findByName(userDetails.getUsername());
-        profileService.save(profile);
-    }
-
 }
-
