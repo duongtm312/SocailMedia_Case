@@ -20,5 +20,6 @@ public class Likes {
     @ManyToOne
     private Comments comments;
     private Date timeLike;
+    private boolean isLiked;
 }
 

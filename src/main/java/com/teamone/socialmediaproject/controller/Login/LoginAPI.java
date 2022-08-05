@@ -4,6 +4,7 @@ package com.teamone.socialmediaproject.controller.Login;
 import com.teamone.socialmediaproject.model.AppUser;
 import com.teamone.socialmediaproject.model.Profile;
 import com.teamone.socialmediaproject.model.Role;
+import com.teamone.socialmediaproject.model.dto.ChangeAvatar;
 import com.teamone.socialmediaproject.model.dto.ChangePassword;
 import com.teamone.socialmediaproject.model.dto.SignUpForm;
 import com.teamone.socialmediaproject.service.AppUserService;
@@ -17,11 +18,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashSet;
-import java.util.Optional;
+import java.util.HashSet;;
 import java.util.Set;
 
 
@@ -102,7 +101,6 @@ public class LoginAPI {
     }
 
 }
-
 
 
 
