@@ -34,6 +34,7 @@ public class ProfileAPI {
     public Profile findById() {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         AppUser appUser=appUserService.findByName(userDetails.getUsername());
+
         return new Profile();
 
     } @PutMapping
