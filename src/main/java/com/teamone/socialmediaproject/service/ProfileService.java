@@ -17,13 +17,13 @@ public class ProfileService {
     public List<Profile> getAll(long user){
         return iUserProfileRepo.getAllProfileFriends(user);
     }
-public Profile findByName(String name){
-        return iUserProfileRepo.findByAppUserUserName(name);
-}
 
     public Profile findProfilebyIdUser (long id){
         return iUserProfileRepo.findProfileByAppUserIdUser(id);
     }
+public Profile findByName(String name){
+        return iUserProfileRepo.findByAppUserUserName(name);
+}
     public List<Profile>findAllByProfileNotFriends(long user,String name){
         return iUserProfileRepo.findAllByProfileNotFriends(user,name);
     }
