@@ -22,8 +22,4 @@ public class Post {
     private String status;
     @ManyToOne
     private AppUser appUser;
-    @OneToMany (fetch = FetchType.EAGER,cascade = {CascadeType.ALL})
-    private Set <Comments> commentsList;
-    @OneToMany (fetch = FetchType.EAGER,cascade = {CascadeType.ALL})
-    private Set <Likes> likesList;
 }

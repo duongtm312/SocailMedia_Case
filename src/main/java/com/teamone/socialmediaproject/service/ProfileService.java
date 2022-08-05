@@ -17,4 +17,8 @@ public class ProfileService {
     public List<Profile> getAll(long user){
         return iUserProfileRepo.getAllProfileFriends(user);
     }
+
+    public Profile findProfilebyIdUser (long id){
+        return iUserProfileRepo.findProfileByAppUserIdUser(id);
+    }
 }

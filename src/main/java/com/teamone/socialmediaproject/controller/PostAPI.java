@@ -1,7 +1,10 @@
 package com.teamone.socialmediaproject.controller;
 
+import com.teamone.socialmediaproject.model.Profile;
 import com.teamone.socialmediaproject.model.fullpost.Post;
+import com.teamone.socialmediaproject.service.AppUserService;
 import com.teamone.socialmediaproject.service.PostService;
+import com.teamone.socialmediaproject.service.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,10 +18,11 @@ import java.util.List;
 public class PostAPI {
     @Autowired
     PostService postService;
+    @Autowired
+    ProfileService profileService;
 
-    @GetMapping()
+    @GetMapping("/post")
     public ResponseEntity<List<Post>> getAllPostFriend() {
-        long idUser = postService.findIdUser();
         List <Post> list = postService.findPostByFriend(postService.findIdUser());
         return new ResponseEntity<>(list,HttpStatus.ACCEPTED);
     }
@@ -27,4 +31,10 @@ public class PostAPI {
     public ResponseEntity<List<Post>> getAllPostPage() {
         return new ResponseEntity<>(postService.findAllPostByIdUser(postService.findIdUser()), HttpStatus.ACCEPTED);
     }
+
+    @GetMapping("/profile")
+    public ResponseEntity<Profile> getProfile(){
+        return new ResponseEntity<>(profileService.findProfilebyIdUser(postService.findIdUser()),HttpStatus.ACCEPTED);
+    }
+
 }
