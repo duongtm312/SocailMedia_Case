@@ -35,7 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/login", "/register","/changePassword/**", "/user","/api/**").permitAll()
+        http.authorizeRequests().antMatchers("/login", "/register","/changePassword", "/user","/api/**").permitAll()
                 .and().authorizeRequests().anyRequest().authenticated()
                 .and().csrf().disable();
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
@@ -48,5 +48,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(appUserService).passwordEncoder(NoOpPasswordEncoder.getInstance());
     }
+
 
 }
