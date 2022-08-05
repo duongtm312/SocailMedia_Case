@@ -27,7 +27,7 @@ public class RestChatController {
     @Autowired
     AppUserService appUserService;
     @GetMapping("/room")
-    public long room( @RequestBody String receiver){
+    public long room( @RequestParam String receiver){
         String sender="";
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         sender=userDetails.getUsername();
@@ -39,7 +39,7 @@ public class RestChatController {
        }
     }
     @GetMapping
-    public List<ChatMessage> getAll( @RequestBody long idRoom){
+    public List<ChatMessage> getAll( @RequestParam long idRoom){
        return chatMessageService.getAllByIdRoom(idRoom);
 
     }
@@ -54,5 +54,9 @@ public class RestChatController {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         AppUser appUser = appUserService.findByName(userDetails.getUsername());
         return appUserService.findByName(appUser.getUserName());
+    }
+    @GetMapping("/name")
+    public Profile getFrien(@RequestParam String name){
+        return profileService.findByName(name);
     }
 }
