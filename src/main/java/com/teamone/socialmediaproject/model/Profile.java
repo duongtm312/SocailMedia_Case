@@ -39,4 +39,5 @@ public class Profile {
         this.gender = gender;
         this.appUser = appUser;
 }
+
 }
