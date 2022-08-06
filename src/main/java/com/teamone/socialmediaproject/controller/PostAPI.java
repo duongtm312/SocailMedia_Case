@@ -1,5 +1,6 @@
 package com.teamone.socialmediaproject.controller;
 
+import com.teamone.socialmediaproject.model.AppUser;
 import com.teamone.socialmediaproject.model.Profile;
 import com.teamone.socialmediaproject.model.fullpost.Comments;
 import com.teamone.socialmediaproject.model.fullpost.Post;
@@ -64,10 +65,12 @@ public class PostAPI {
     @PostMapping("/createPost")
     public Post save (@RequestBody Post post){
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        AppUser appUser =appUserServicel.findByName(userDetails.getUsername());
         post.setNumCommentPost(0);
         post.setNumLikePost(0);
         post.setTimePost(new Date());
-        post.setAppUser(appUserServicel.findByName(userDetails.getUsername()));
+        post.setAppUser(appUser);
+        post.setProfile(profileService.findProfilebyIdUser(appUser.getIdUser()));
         return postService.save(post);
     }
 

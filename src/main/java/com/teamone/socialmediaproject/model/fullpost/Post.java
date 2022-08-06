@@ -1,6 +1,7 @@
 package com.teamone.socialmediaproject.model.fullpost;
 
 import com.teamone.socialmediaproject.model.AppUser;
+import com.teamone.socialmediaproject.model.Profile;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -22,4 +23,6 @@ public class Post {
     private String status;
     @ManyToOne
     private AppUser appUser;
+    @ManyToOne
+    private Profile profile;
 }
