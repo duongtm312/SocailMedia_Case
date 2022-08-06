@@ -10,7 +10,6 @@ import java.util.List;
 
 @Repository
 public interface ILikeRepo extends CrudRepository<Likes, Long> {
- List findByAppUserAndAndPost(AppUser appUser, Post post);
- int countLikesByPost(Post post);
+ Likes findByAppUserAndAndPost(AppUser appUser, Post post);
 
 }
