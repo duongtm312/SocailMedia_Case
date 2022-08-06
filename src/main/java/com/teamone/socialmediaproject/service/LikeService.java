@@ -1,36 +1,39 @@
 package com.teamone.socialmediaproject.service;
 
+
 import com.teamone.socialmediaproject.model.fullpost.Likes;
-import com.teamone.socialmediaproject.repository.ILikePost;
+import com.teamone.socialmediaproject.model.fullpost.Post;
+import com.teamone.socialmediaproject.repository.ILikeRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+
 
 @Service
 public class LikeService {
     @Autowired
-    ILikePost iLikePost;
+    ILikeRepo iLikeRepo;
 
-    public Likes findAll() {
-      return (Likes) iLikePost.findAll();
-    }
+ @Autowired
+    PostService postService;
 
-    public Likes save(Likes likesPost) {
-        return iLikePost.save(likesPost);
-    }
-    public Optional<Likes> findById (Long id) {
-        return iLikePost.findById(id);
-    }
+ public void save(Likes like) {
+     iLikeRepo.save(like);
+ }
+ public void check(Likes likes) {
+     Likes likes1 = (Likes) iLikeRepo.findByAppUserAndAndPost(likes.getAppUser(), postService.findPostById(likes.getPost().getIdPost()));
 
-    public void remove (Long id) {
-        iLikePost.deleteById(id);
-    }
+     if (likes1 == null) {
+         save(likes);
+     }else {
+         remove(likes1);
+     }
+ }
 
-    public Likes findAllByIdUser(Long id) {
-        return (Likes) iLikePost.findAllByAppUserIdUser(id);
-    }
-    public Likes findByAppUserIdUser(Long idUser, Long idPost) {
-        return (Likes) iLikePost.findAllByAppUserIdUserAndAndPost(idUser,idPost);
-    }
+ public void remove (Likes likes) {
+     iLikeRepo.delete(likes);
+ }
+ public int countByPost(Post post){
+     return iLikeRepo.countLikesByPost(post);
+ }
 }

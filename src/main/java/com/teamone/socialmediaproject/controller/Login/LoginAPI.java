@@ -4,7 +4,6 @@ package com.teamone.socialmediaproject.controller.Login;
 import com.teamone.socialmediaproject.model.AppUser;
 import com.teamone.socialmediaproject.model.Profile;
 import com.teamone.socialmediaproject.model.Role;
-import com.teamone.socialmediaproject.model.dto.ChangeAvatar;
 import com.teamone.socialmediaproject.model.dto.ChangePassword;
 import com.teamone.socialmediaproject.model.dto.SignUpForm;
 import com.teamone.socialmediaproject.service.AppUserService;
