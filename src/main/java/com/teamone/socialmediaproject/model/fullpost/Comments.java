@@ -1,6 +1,7 @@
 package com.teamone.socialmediaproject.model.fullpost;
 
 import com.teamone.socialmediaproject.model.AppUser;
+import com.teamone.socialmediaproject.model.Profile;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -21,4 +22,6 @@ public class Comments {
     @ManyToOne
     private Comments comment;
     private Date timeCmt;
+    @ManyToOne
+    private Profile profile;
 }
