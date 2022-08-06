@@ -1,8 +1,10 @@
 package com.teamone.socialmediaproject.controller;
 
 import com.teamone.socialmediaproject.model.Profile;
+import com.teamone.socialmediaproject.model.fullpost.Comments;
 import com.teamone.socialmediaproject.model.fullpost.Post;
 import com.teamone.socialmediaproject.service.AppUserService;
+import com.teamone.socialmediaproject.service.CommentServices;
 import com.teamone.socialmediaproject.service.PostService;
 import com.teamone.socialmediaproject.service.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +31,8 @@ public class PostAPI {
     ProfileService profileService;
     @Autowired
     AppUserService appUserServicel;
+    @Autowired
+    CommentServices commentServices;
 
     @GetMapping("/post")
     public ResponseEntity<List<Post>> getAllPostFriend() {
@@ -65,5 +69,10 @@ public class PostAPI {
         post.setTimePost(new Date());
         post.setAppUser(appUserServicel.findByName(userDetails.getUsername()));
         return postService.save(post);
+    }
+
+    @GetMapping("/comment/{idPost}")
+    public ResponseEntity<List<Comments>> getComment (@PathVariable long idPost){
+        return new ResponseEntity<>(commentServices.findComment(idPost),HttpStatus.OK);
     }
 }
