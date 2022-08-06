@@ -17,23 +17,20 @@ public class LikeService {
  @Autowired
     PostService postService;
 
- public void save(Likes like) {
-     iLikeRepo.save(like);
- }
+// public void save(Likes like) {
+//     iLikeRepo.save(like);
+// }
  public void check(Likes likes) {
-     Likes likes1 = (Likes) iLikeRepo.findByAppUserAndAndPost(likes.getAppUser(), postService.findPostById(likes.getPost().getIdPost()));
+     Likes likes1 =  iLikeRepo.findByAppUserAndAndPost(likes.getAppUser(), postService.findPostById(likes.getPost().getIdPost()));
 
      if (likes1 == null) {
-         save(likes);
+         iLikeRepo.save(likes);
      }else {
-         remove(likes1);
+         iLikeRepo.delete(likes1);
      }
  }
 
  public void remove (Likes likes) {
      iLikeRepo.delete(likes);
- }
- public int countByPost(Post post){
-     return iLikeRepo.countLikesByPost(post);
  }
 }

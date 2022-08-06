@@ -17,20 +17,22 @@ import org.springframework.web.bind.annotation.*;
 public class LikeAPI {
     @Autowired
     private AppUserService appUserService;
-
     @Autowired
-    private PostService postService;
+    PostService postService;
 
     @Autowired
     LikeService likeService;
 
 
-@PostMapping
-    public void likeObject(@RequestBody Likes likes) {
+@PostMapping("/{id}")
+    public String likeObject(@PathVariable long id) {
     UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     AppUser appUser = appUserService.findByName(userDetails.getUsername());
+    Likes likes = new Likes();
     likes.setAppUser(appUser);
+    likes.setPost(postService.findPostById(id));
     likeService.check(likes);
+    return "ok";
 }
 
 }
