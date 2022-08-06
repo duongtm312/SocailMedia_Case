@@ -1,5 +1,6 @@
 package com.teamone.socialmediaproject.controller;
 
+import com.teamone.socialmediaproject.model.AppUser;
 import com.teamone.socialmediaproject.model.Profile;
 import com.teamone.socialmediaproject.model.fullpost.Post;
 import com.teamone.socialmediaproject.service.AppUserService;
@@ -32,8 +33,8 @@ public class PostAPI {
 
     @GetMapping("/post")
     public ResponseEntity<List<Post>> getAllPostFriend() {
-        List <Post> list = postService.findPostByFriend(postService.findIdUser());
-        return new ResponseEntity<>(list,HttpStatus.ACCEPTED);
+        List<Post> list = postService.findPostByFriend(postService.findIdUser());
+        return new ResponseEntity<>(list, HttpStatus.ACCEPTED);
     }
 
     @GetMapping("/page")
@@ -42,23 +43,23 @@ public class PostAPI {
     }
 
     @GetMapping("/profile")
-    public ResponseEntity<Profile> getProfile(){
-        return new ResponseEntity<>(profileService.findProfilebyIdUser(postService.findIdUser()),HttpStatus.ACCEPTED);
+    public ResponseEntity<Profile> getProfile() {
+        return new ResponseEntity<>(profileService.findProfilebyIdUser(postService.findIdUser()), HttpStatus.ACCEPTED);
     }
 
     @PostMapping("/upImg")
-    public String upImg(@RequestParam MultipartFile file){
+    public String upImg(@RequestParam MultipartFile file) {
         String name = file.getOriginalFilename();
         try {
-            FileCopyUtils.copy(file.getBytes(),new File("D:\\CodeGym\\CaseModul4\\Social\\assets\\images\\post\\imgpost/" + name));
+            FileCopyUtils.copy(file.getBytes(), new File("D:\\CodeGym\\CaseModul4\\Social\\assets\\images\\post\\imgpost/" + name));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return "/assets/images/post/imgpost/"+name;
+        return "/assets/images/post/imgpost/" + name;
     }
 
     @PostMapping("/createPost")
-    public Post save (@RequestBody Post post){
+    public Post save(@RequestBody Post post) {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         post.setNumCommentPost(0);
         post.setNumLikePost(0);
@@ -66,4 +67,11 @@ public class PostAPI {
         post.setAppUser(appUserServicel.findByName(userDetails.getUsername()));
         return postService.save(post);
     }
+
+    @GetMapping("/postUser")
+    public ResponseEntity<List<Post>> getAllPostByUser() {
+        List<Post> list = postService.findAllPostByIdUser(postService.findIdUser());
+        return new ResponseEntity<>(list, HttpStatus.ACCEPTED);
+    }
+
 }
