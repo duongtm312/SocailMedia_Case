@@ -71,6 +71,13 @@ public class PostAPI {
         return postService.save(post);
     }
 
+    @GetMapping("/postUser")
+    public ResponseEntity<List<Post>> getAllPostByUser() {
+        List<Post> list = postService.findAllPostByIdUser(postService.findIdUser());
+        return new ResponseEntity<>(list, HttpStatus.ACCEPTED);
+    }
+
+
     @GetMapping("/comment/{idPost}")
     public ResponseEntity<List<Comments>> getComment (@PathVariable long idPost){
         return new ResponseEntity<>(commentServices.findComment(idPost),HttpStatus.OK);
