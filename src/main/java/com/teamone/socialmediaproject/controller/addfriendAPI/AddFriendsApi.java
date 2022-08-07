@@ -3,9 +3,7 @@ package com.teamone.socialmediaproject.controller.addfriendAPI;
 import com.teamone.socialmediaproject.model.AppUser;
 import com.teamone.socialmediaproject.model.friend.AddFriends;
 import com.teamone.socialmediaproject.model.friend.Friends;
-import com.teamone.socialmediaproject.service.AddFriendService;
-import com.teamone.socialmediaproject.service.AppUserService;
-import com.teamone.socialmediaproject.service.FriendService;
+import com.teamone.socialmediaproject.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,6 +14,10 @@ import org.springframework.web.bind.annotation.*;
 public class AddFriendsApi {
     @Autowired
     AppUserService appUserService;
+    @Autowired
+    ProfileService profileService;
+    @Autowired
+    PostService postService;
     @Autowired
     AddFriendService addFriendService;
     @Autowired

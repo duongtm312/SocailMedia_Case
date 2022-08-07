@@ -7,6 +7,8 @@ import com.teamone.socialmediaproject.repository.IAddFriendRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class AddFriendService {
     @Autowired
@@ -23,5 +25,9 @@ public class AddFriendService {
     }
     public AddFriends findByAppUser1_UserNameAndAndAppUser2_UserName(String user1,String user2){
         return iAddFriendRepo.findByAppUser1_UserNameAndAndAppUser2_UserName(user1,user2);
+    }
+
+    public List<AddFriends> findAllAddFriendById (long idUser){
+        return iAddFriendRepo.findAllByAppUser1(idUser);
     }
 }

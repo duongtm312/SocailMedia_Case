@@ -1,6 +1,7 @@
 package com.teamone.socialmediaproject.model.friend;
 
 import com.teamone.socialmediaproject.model.AppUser;
+import com.teamone.socialmediaproject.model.Profile;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -15,4 +16,5 @@ public class AddFriends {
     private AppUser appUser1;
     @ManyToOne
     private AppUser appUser2;
+
 }
