@@ -16,5 +16,6 @@ public class AddFriends {
     private AppUser appUser1;
     @ManyToOne
     private AppUser appUser2;
-
+    @ManyToOne
+    private Profile profile;
 }
