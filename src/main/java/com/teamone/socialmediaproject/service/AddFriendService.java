@@ -16,9 +16,9 @@ public class AddFriendService {
     public AddFriends save(AddFriends addFriends){
       return iAddFriendRepo.save(addFriends);
     }
-    public AddFriends delete(AppUser appUser,AppUser appUser2){
-        iAddFriendRepo.deleteByAppUser1AndAndAppUser2(appUser2,appUser);
-      return iAddFriendRepo.deleteByAppUser1AndAndAppUser2(appUser,appUser2);
+    public AddFriends delete(long id){
+        iAddFriendRepo.deleteById(id);
+        return new AddFriends();
     }
     public AddFriends findById(long id){
         return iAddFriendRepo.findById(id).get();

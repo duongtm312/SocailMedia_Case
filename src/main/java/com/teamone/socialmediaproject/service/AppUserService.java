@@ -27,7 +27,7 @@ public class AppUserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        AppUser appUser = iAppUserRepo.findByUserName(username);
+        AppUser appUser = iAppUserRepo.findByUserNameS(username);
         return new User(appUser.getUserName(), appUser.getPassWord(), appUser.getRoles());
     }
 
