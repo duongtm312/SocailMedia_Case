@@ -2,6 +2,7 @@ package com.teamone.socialmediaproject.controller;
 
 import com.teamone.socialmediaproject.model.AppUser;
 import com.teamone.socialmediaproject.model.Profile;
+import com.teamone.socialmediaproject.model.dto.CommentsIdPost;
 import com.teamone.socialmediaproject.model.friend.AddFriends;
 import com.teamone.socialmediaproject.model.fullpost.Comments;
 import com.teamone.socialmediaproject.model.fullpost.Post;
@@ -94,5 +95,20 @@ public class PostAPI {
         long idUser = appUserService.findByName(userDetails.getUsername()).getIdUser();
         List <AddFriends> friendsList = addFriendService.findAllAddFriendById(idUser);
         return new ResponseEntity<>(friendsList,HttpStatus.OK);
+    }
+
+    @PostMapping("/createComment")
+    public Comments createCmt (@RequestBody CommentsIdPost commentsIdPost){
+        if (commentsIdPost.getContent().equals("")) return null;
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        AppUser appUser =appUserServicel.findByName(userDetails.getUsername());
+        Comments comments = new Comments();
+        comments.setPost(postService.findPostById(commentsIdPost.getIdP()));
+        comments.setContentCmt(commentsIdPost.getContent());
+        comments.setTimeCmt(new Date());
+        comments.setNumLikeCmt(0);
+        comments.setAppUser(appUser);
+        comments.setProfile(profileService.findProfilebyIdUser(appUser.getIdUser()));
+        return commentServices.saveCmt(comments);
     }
 }

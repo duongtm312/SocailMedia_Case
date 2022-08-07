@@ -16,4 +16,8 @@ public class CommentServices {
     public List<Comments> findComment(long idPost) {
         return iCommentRepo.findAllByPostIdPost(idPost);
     }
+
+    public Comments saveCmt (Comments comments){
+        return iCommentRepo.save(comments);
+    }
 }
