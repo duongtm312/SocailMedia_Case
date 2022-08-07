@@ -21,6 +21,7 @@ public class FriendService {
         Friends friends2 = new Friends();
         friends2.setAppUser1(appUser2);
         friends2.setAppUser2(appUser1);
+
         return iFriendRepo.save(friends2);
     }
 }
