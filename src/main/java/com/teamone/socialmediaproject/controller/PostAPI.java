@@ -55,7 +55,7 @@ public class PostAPI {
     public String upImg(@RequestParam MultipartFile file){
         String name = file.getOriginalFilename();
         try {
-            FileCopyUtils.copy(file.getBytes(),new File("C:\\Users\\ADMIN\\Desktop\\Case4\\FE_SocialMedia_Case\\assets\\images\\post\\imgpost\\" + name));
+            FileCopyUtils.copy(file.getBytes(),new File("D:\\FE_SocialMedia_Case\\assets\\images\\post\\imgpost" + name));
         } catch (IOException e) {
             e.printStackTrace();
         }
