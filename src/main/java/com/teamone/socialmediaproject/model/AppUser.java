@@ -23,7 +23,6 @@ public class AppUser {
     private String email;
     @ManyToMany(fetch = FetchType.EAGER,cascade = {CascadeType.ALL})
     private Set<Role> roles;
-
     public AppUser(String userName, String passWord) {
     }
 }

@@ -2,7 +2,6 @@ package com.teamone.socialmediaproject.service;
 
 
 import com.teamone.socialmediaproject.model.fullpost.Likes;
-import com.teamone.socialmediaproject.model.fullpost.Post;
 import com.teamone.socialmediaproject.repository.ILikeRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

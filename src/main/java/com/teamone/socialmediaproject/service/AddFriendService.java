@@ -1,6 +1,7 @@
 package com.teamone.socialmediaproject.service;
 
 import com.teamone.socialmediaproject.controller.addfriendAPI.AddFriendsApi;
+import com.teamone.socialmediaproject.model.AppUser;
 import com.teamone.socialmediaproject.model.friend.AddFriends;
 import com.teamone.socialmediaproject.repository.IAddFriendRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +14,9 @@ public class AddFriendService {
     public AddFriends save(AddFriends addFriends){
       return iAddFriendRepo.save(addFriends);
     }
-    public void delete(long id){
-        iAddFriendRepo.deleteById(id);
+    public AddFriends delete(AppUser appUser,AppUser appUser2){
+        iAddFriendRepo.deleteByAppUser1AndAndAppUser2(appUser2,appUser);
+      return iAddFriendRepo.deleteByAppUser1AndAndAppUser2(appUser,appUser2);
     }
     public AddFriends findById(long id){
         return iAddFriendRepo.findById(id).get();
