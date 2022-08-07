@@ -2,12 +2,10 @@ package com.teamone.socialmediaproject.controller;
 
 import com.teamone.socialmediaproject.model.AppUser;
 import com.teamone.socialmediaproject.model.Profile;
+import com.teamone.socialmediaproject.model.friend.AddFriends;
 import com.teamone.socialmediaproject.model.fullpost.Comments;
 import com.teamone.socialmediaproject.model.fullpost.Post;
-import com.teamone.socialmediaproject.service.AppUserService;
-import com.teamone.socialmediaproject.service.CommentServices;
-import com.teamone.socialmediaproject.service.PostService;
-import com.teamone.socialmediaproject.service.ProfileService;
+import com.teamone.socialmediaproject.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,11 +27,15 @@ public class PostAPI {
     @Autowired
     PostService postService;
     @Autowired
+    AppUserService appUserService;
+    @Autowired
     ProfileService profileService;
     @Autowired
     AppUserService appUserServicel;
     @Autowired
     CommentServices commentServices;
+    @Autowired
+    AddFriendService addFriendService;
 
     @GetMapping("/post")
     public ResponseEntity<List<Post>> getAllPostFriend() {
@@ -84,5 +86,13 @@ public class PostAPI {
     @GetMapping("/comment/{idPost}")
     public ResponseEntity<List<Comments>> getComment (@PathVariable long idPost){
         return new ResponseEntity<>(commentServices.findComment(idPost),HttpStatus.OK);
+    }
+
+    @GetMapping("/showaddfriend")
+    public ResponseEntity<List<AddFriends>> getAddFriend(){
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        long idUser = appUserService.findByName(userDetails.getUsername()).getIdUser();
+        List <AddFriends> friendsList = addFriendService.findAllAddFriendById(idUser);
+        return new ResponseEntity<>(friendsList,HttpStatus.OK);
     }
 }
