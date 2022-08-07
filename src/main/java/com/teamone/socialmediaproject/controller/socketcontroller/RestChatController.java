@@ -26,41 +26,37 @@ public class RestChatController {
     ProfileService profileService;
     @Autowired
     AppUserService appUserService;
-
     @GetMapping("/room")
-    public long room(@RequestParam String receiver) {
-        String sender = "";
+    public long room( @RequestParam String receiver){
+        String sender="";
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        sender = userDetails.getUsername();
-        long idRoom = roomChatService.getIdRoomChat(sender, receiver);
-        if (idRoom != -1) {
-            return idRoom;
-        } else {
-            return roomChatService.save(sender, receiver).getIdRoom();
-        }
+        sender=userDetails.getUsername();
+       long idRoom = roomChatService.getIdRoomChat(sender,receiver);
+       if (idRoom!=-1){
+        return idRoom;
+       }else {
+           return roomChatService.save(sender,receiver).getIdRoom();
+       }
     }
-
     @GetMapping
-    public List<ChatMessage> getAll(@RequestParam long idRoom) {
-        return chatMessageService.getAllByIdRoom(idRoom);
+    public List<ChatMessage> getAll( @RequestParam long idRoom){
+       return chatMessageService.getAllByIdRoom(idRoom);
 
     }
-
     @GetMapping("/friends")
-    public List<Profile> getAlFriends() {
+    public List<Profile> getAlFriends(){
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        AppUser appUser = appUserService.findByName(userDetails.getUsername());
-        return profileService.getAll(appUser.getIdUser());
-    }
-
-    @GetMapping("/name")
-    public Profile getFriends(@RequestParam String name) {
-        return profileService.findByName(name);
+        AppUser appUser=appUserService.findByName(userDetails.getUsername());
+       return profileService.getAll(appUser.getIdUser());
     }
     @GetMapping("/on")
     public AppUser getUser() {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         AppUser appUser = appUserService.findByName(userDetails.getUsername());
         return appUserService.findByName(appUser.getUserName());
+    }
+    @GetMapping("/name")
+    public Profile getFrien(@RequestParam String name){
+        return profileService.findByName(name);
     }
 }

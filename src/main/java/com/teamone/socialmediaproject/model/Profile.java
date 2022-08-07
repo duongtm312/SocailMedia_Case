@@ -23,7 +23,7 @@ public class Profile {
     private String job;
     private String avatarSrc;
     private String photoCoverSrc;
-    private Date startJoin;
+        private Date startJoin;
     private String gender;
     @OneToOne
     private AppUser appUser;
