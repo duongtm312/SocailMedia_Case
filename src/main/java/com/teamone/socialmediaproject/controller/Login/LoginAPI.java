@@ -6,7 +6,9 @@ import com.teamone.socialmediaproject.model.Profile;
 import com.teamone.socialmediaproject.model.Role;
 import com.teamone.socialmediaproject.model.dto.ChangePassword;
 import com.teamone.socialmediaproject.model.dto.SignUpForm;
+import com.teamone.socialmediaproject.model.friend.Friends;
 import com.teamone.socialmediaproject.service.AppUserService;
+import com.teamone.socialmediaproject.service.FriendService;
 import com.teamone.socialmediaproject.service.JwtService;
 import com.teamone.socialmediaproject.service.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +39,8 @@ public class LoginAPI {
 
     @Autowired
     ProfileService profileService;
+    @Autowired
+    FriendService friendService;
 
 
     @PostMapping("/login")
@@ -76,6 +80,10 @@ public class LoginAPI {
         profile.setFullName(user.getFullName());
         profile.setAppUser(user1);
         profileService.save(profile);
+        Friends friends = new Friends();
+        friends.setAppUser1(user1);
+        friends.setAppUser2(user1);
+        friendService.save(friends);
         return new ResponseEntity<>(user1, HttpStatus.CREATED);
     }
 
