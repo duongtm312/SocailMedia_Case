@@ -33,8 +33,7 @@ public class PostAPI {
     AppUserService appUserService;
     @Autowired
     ProfileService profileService;
-    @Autowired
-    AppUserService appUserServicel;
+
     @Autowired
     CommentServices commentServices;
     @Autowired
@@ -60,17 +59,31 @@ public class PostAPI {
     public String upImg(@RequestParam MultipartFile file){
         String name = file.getOriginalFilename();
         try {
-            FileCopyUtils.copy(file.getBytes(),new File("D:\\CodeGym\\CaseModul4\\Social\\assets\\images\\post\\imgpost\\" + name));
+            FileCopyUtils.copy(file.getBytes(),new File("C:\\Users\\ADMIN\\Desktop\\Case4\\FE_SocialMedia_Case\\assets\\images\\post\\imgpost\\" + name));
         } catch (IOException e) {
             e.printStackTrace();
         }
         return "/assets/images/post/imgpost/"+name;
     }
+    @PostMapping("/changeAvatar")
+    public ResponseEntity <Profile> changeAvatar(@RequestParam MultipartFile file){
+        String name = file.getOriginalFilename();
+        try {
+            FileCopyUtils.copy(file.getBytes(),new File("C:\\Users\\ADMIN\\Desktop\\Case4\\FE_SocialMedia_Case\\assets\\images\\post\\imgpost\\" + name));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Profile profile =profileService.findByName(userDetails.getUsername());
+        profile.setAvatarSrc("\\assets\\images\\post\\imgpost\\" + name);
+        profileService.save(profile);
+        return new ResponseEntity<>(profile,HttpStatus.OK);
+    }
 
     @PostMapping("/createPost")
     public Post save (@RequestBody Post post){
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        AppUser appUser =appUserServicel.findByName(userDetails.getUsername());
+        AppUser appUser =appUserService.findByName(userDetails.getUsername());
         post.setNumCommentPost(0);
         post.setNumLikePost(0);
         post.setTimePost(new Date());
@@ -103,7 +116,7 @@ public class PostAPI {
     public Comments createCmt (@RequestBody CommentsIdPost commentsIdPost){
         if (commentsIdPost.getContent().equals("")) return null;
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        AppUser appUser =appUserServicel.findByName(userDetails.getUsername());
+        AppUser appUser =appUserService.findByName(userDetails.getUsername());
         Comments comments = new Comments();
         comments.setPost(postService.findPostById(commentsIdPost.getIdP()));
         comments.setContentCmt(commentsIdPost.getContent());
