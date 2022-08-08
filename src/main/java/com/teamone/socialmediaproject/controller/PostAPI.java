@@ -69,13 +69,27 @@ public class PostAPI {
     public ResponseEntity <Profile> changeAvatar(@RequestParam MultipartFile file){
         String name = file.getOriginalFilename();
         try {
-            FileCopyUtils.copy(file.getBytes(),new File("C:\\Users\\ADMIN\\Desktop\\Case4\\FE_SocialMedia_Case\\assets\\images\\post\\imgpost\\" + name));
+            FileCopyUtils.copy(file.getBytes(),new File("D:\\CodeGym\\CaseModul4\\Social\\assets\\images\\post\\imgpost\\" + name));
         } catch (IOException e) {
             e.printStackTrace();
         }
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Profile profile =profileService.findByName(userDetails.getUsername());
         profile.setAvatarSrc("\\assets\\images\\post\\imgpost\\" + name);
+        profileService.save(profile);
+        return new ResponseEntity<>(profile,HttpStatus.OK);
+    }
+    @PostMapping("/changeCover")
+    public ResponseEntity <Profile> changeCover(@RequestParam MultipartFile file){
+        String name = file.getOriginalFilename();
+        try {
+            FileCopyUtils.copy(file.getBytes(),new File("D:\\CodeGym\\CaseModul4\\Social\\assets\\images\\post\\imgpost\\" + name));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Profile profile =profileService.findByName(userDetails.getUsername());
+        profile.setPhotoCoverSrc("\\assets\\images\\post\\imgpost\\" + name);
         profileService.save(profile);
         return new ResponseEntity<>(profile,HttpStatus.OK);
     }
