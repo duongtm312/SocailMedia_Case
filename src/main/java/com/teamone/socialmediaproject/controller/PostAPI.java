@@ -89,7 +89,7 @@ public class PostAPI {
         }
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Profile profile =profileService.findByName(userDetails.getUsername());
-        profile.setPhotoCoverSrc(name);
+        profile.setPhotoCoverSrc("\\assets\\images\\post\\imgpost\\" + name);
         profileService.save(profile);
         return new ResponseEntity<>(profile,HttpStatus.OK);
     }
