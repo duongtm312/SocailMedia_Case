@@ -1,4 +1,4 @@
-package com.teamone.socialmediaproject.controllers;
+package com.teamone.socialmediaproject.controller;
 
 import com.teamone.socialmediaproject.model.AppUser;
 import com.teamone.socialmediaproject.model.Profile;
