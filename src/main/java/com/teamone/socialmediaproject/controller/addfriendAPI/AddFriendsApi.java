@@ -31,7 +31,7 @@ public class AddFriendsApi {
         AddFriends addFriends = new AddFriends();
         addFriends.setAppUser1(appUser);
         addFriends.setAppUser2(appUser1);
-        addFriends.setProfile(profileService.findProfilebyIdUser(appUser1.getIdUser()));
+        addFriends.setProfile(profileService.findProfilebyIdUser(appUser.getIdUser()));
         if (addFriendService.findByAppUser1_UserNameAndAndAppUser2_UserName(appUser.getUserName(), appUser1.getUserName()) == null) {
             return addFriendService.save(addFriends);
         } else {

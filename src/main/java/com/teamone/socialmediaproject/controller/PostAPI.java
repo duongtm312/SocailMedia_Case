@@ -7,6 +7,7 @@ import com.teamone.socialmediaproject.model.friend.AddFriends;
 import com.teamone.socialmediaproject.model.fullpost.Comments;
 import com.teamone.socialmediaproject.model.fullpost.Post;
 import com.teamone.socialmediaproject.service.*;
+import javafx.geometry.Pos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -110,5 +111,10 @@ public class PostAPI {
         comments.setAppUser(appUser);
         comments.setProfile(profileService.findProfilebyIdUser(appUser.getIdUser()));
         return commentServices.saveCmt(comments);
+    }
+    @GetMapping("/getPostFr")
+    public List<Post>getPostFr(@RequestParam String userFriend){
+        AppUser appUser = appUserService.findByName(userFriend);
+        return postService.findAllPostByIdUser(appUser.getIdUser());
     }
 }
