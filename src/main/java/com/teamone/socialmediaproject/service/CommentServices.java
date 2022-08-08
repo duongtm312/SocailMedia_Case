@@ -20,4 +20,8 @@ public class CommentServices {
     public Comments saveCmt (Comments comments){
         return iCommentRepo.save(comments);
     }
+
+    public void deleteCmt(long idComment) {
+        iCommentRepo.deleteById(idComment);
+    }
 }
