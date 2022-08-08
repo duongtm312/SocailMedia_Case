@@ -37,7 +37,10 @@ public class ProfileAPI {
     public void edit(@RequestBody Profile profile) {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         AppUser appUser = appUserService.findByName(userDetails.getUsername());
+      Profile proOld =  profileService.findByName(appUser.getUserName());
         profile.setAppUser(appUser);
+        profile.setAvatarSrc(proOld.getAvatarSrc());
+        profile.setPhotoCoverSrc(proOld.getPhotoCoverSrc());
         profileService.save(profile);
     }
 
