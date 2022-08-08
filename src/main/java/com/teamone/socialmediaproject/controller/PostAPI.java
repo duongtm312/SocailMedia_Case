@@ -17,6 +17,7 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServlet;
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
@@ -116,5 +117,11 @@ public class PostAPI {
     public List<Post>getPostFr(@RequestParam String userFriend){
         AppUser appUser = appUserService.findByName(userFriend);
         return postService.findAllPostByIdUser(appUser.getIdUser());
+    }
+
+    @GetMapping("/delete/{idPost}")
+    public ResponseEntity<Post> deletePost (@PathVariable long idPost){
+        postService.delete(idPost);
+        return new ResponseEntity<>(new Post(),HttpStatus.OK);
     }
 }
