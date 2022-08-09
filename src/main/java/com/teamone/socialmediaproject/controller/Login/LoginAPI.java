@@ -87,6 +87,27 @@ public class LoginAPI {
         return new ResponseEntity<>(user1, HttpStatus.CREATED);
     }
 
+    @GetMapping("/register/user")
+    public ResponseEntity<AppUser> checkUser(@RequestParam String userName) {
+        AppUser appUser = appUserService.findByName(userName);
+        if (appUser!=null){
+            return new ResponseEntity<>(appUser, HttpStatus.OK);
+        }else {
+            return new ResponseEntity<>(appUser,HttpStatus.BAD_REQUEST);
+        }
+
+    }
+    @GetMapping("/register/mail")
+    public ResponseEntity<AppUser> checkMail(@RequestParam String email) {
+        AppUser appUser = appUserService.findByEMail(email);
+        if (appUser!=null){
+            return new ResponseEntity<>(appUser, HttpStatus.OK);
+        }else {
+            return new ResponseEntity<>(appUser,HttpStatus.BAD_REQUEST);
+        }
+
+    }
+
     @PostMapping("/changePassword")
     public ResponseEntity<AppUser> changePassword(@RequestBody ChangePassword changePassword) {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
