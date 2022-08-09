@@ -69,7 +69,7 @@ public class PostAPI {
     public ResponseEntity <Profile> changeAvatar(@RequestParam MultipartFile file){
         String name = file.getOriginalFilename();
         try {
-            FileCopyUtils.copy(file.getBytes(),new File("D:\\CodeGym\\CaseModul4\\Social\\assets\\images\\post\\imgpost\\" + name));
+            FileCopyUtils.copy(file.getBytes(),new File("C:\\Users\\ADMIN\\Desktop\\Case4\\FE_SocialMedia_Case\\assets\\images\\post\\imgpost\\" + name));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -83,7 +83,7 @@ public class PostAPI {
     public ResponseEntity <Profile> changeCover(@RequestParam MultipartFile file){
         String name = file.getOriginalFilename();
         try {
-            FileCopyUtils.copy(file.getBytes(),new File("D:\\CodeGym\\CaseModul4\\Social\\assets\\images\\post\\imgpost\\" + name));
+            FileCopyUtils.copy(file.getBytes(),new File("C:\\Users\\ADMIN\\Desktop\\Case4\\FE_SocialMedia_Case\\assets\\images\\post\\imgpost\\" + name));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -150,5 +150,10 @@ public class PostAPI {
     public ResponseEntity<Post> deletePost (@PathVariable long idPost){
         postService.delete(idPost);
         return new ResponseEntity<>(new Post(),HttpStatus.OK);
+    }
+    @GetMapping("/deleteCmt/{idComment}")
+    public ResponseEntity<Comments> deteleCmt (@PathVariable long idComment){
+        commentServices.deleteCmt(idComment);
+        return new ResponseEntity<>(new Comments(),HttpStatus.OK);
     }
 }
