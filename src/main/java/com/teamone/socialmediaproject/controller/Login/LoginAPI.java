@@ -91,9 +91,9 @@ public class LoginAPI {
     public ResponseEntity<AppUser> checkUser(@RequestParam String userName) {
         AppUser appUser = appUserService.findByName(userName);
         if (appUser!=null){
-            return new ResponseEntity<>(appUser, HttpStatus.OK);
+            return new ResponseEntity<>(appUser, HttpStatus.BAD_REQUEST);
         }else {
-            return new ResponseEntity<>(appUser,HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(appUser,HttpStatus.OK);
         }
 
     }
@@ -101,9 +101,9 @@ public class LoginAPI {
     public ResponseEntity<AppUser> checkMail(@RequestParam String email) {
         AppUser appUser = appUserService.findByEMail(email);
         if (appUser!=null){
-            return new ResponseEntity<>(appUser, HttpStatus.OK);
+            return new ResponseEntity<>(appUser, HttpStatus.BAD_REQUEST);
         }else {
-            return new ResponseEntity<>(appUser,HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(appUser,HttpStatus.OK);
         }
 
     }

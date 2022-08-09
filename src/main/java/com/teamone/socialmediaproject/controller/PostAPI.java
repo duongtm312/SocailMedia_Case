@@ -151,4 +151,9 @@ public class PostAPI {
         postService.delete(idPost);
         return new ResponseEntity<>(new Post(),HttpStatus.OK);
     }
+    @GetMapping("/deleteCmt/{idComment}")
+    public ResponseEntity<Comments> deteleCmt (@PathVariable long idComment){
+        commentServices.deleteCmt(idComment);
+        return new ResponseEntity<>(new Comments(),HttpStatus.OK);
+    }
 }
